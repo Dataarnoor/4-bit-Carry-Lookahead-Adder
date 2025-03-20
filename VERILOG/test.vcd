@@ -1,0 +1,308 @@
+$date
+	Wed Nov 20 12:04:53 2024
+$end
+$version
+	Icarus Verilog
+$end
+$timescale
+	1ps
+$end
+$scope module testbench $end
+$var wire 4 ! sum [3:0] $end
+$var wire 1 " c4 $end
+$var reg 4 # A [3:0] $end
+$var reg 4 $ B [3:0] $end
+$var reg 1 % clk $end
+$var reg 1 & reset $end
+$scope module uut $end
+$var wire 4 ' A [3:0] $end
+$var wire 4 ( B [3:0] $end
+$var wire 1 ) C0 $end
+$var wire 1 % clk $end
+$var wire 1 & reset $end
+$var wire 4 * sum_int [3:0] $end
+$var wire 4 + sum [3:0] $end
+$var wire 1 , c4_int $end
+$var wire 1 " c4 $end
+$var wire 4 - B_ff [3:0] $end
+$var wire 4 . A_ff [3:0] $end
+$scope module cla_inst $end
+$var wire 4 / A [3:0] $end
+$var wire 4 0 B [3:0] $end
+$var wire 1 ) C0 $end
+$var wire 1 1 C1 $end
+$var wire 1 2 C2 $end
+$var wire 1 3 C3 $end
+$var wire 1 4 C4 $end
+$var wire 1 5 G0 $end
+$var wire 1 6 G1 $end
+$var wire 1 7 G2 $end
+$var wire 1 8 G3 $end
+$var wire 1 9 P0 $end
+$var wire 1 : P1 $end
+$var wire 1 ; P2 $end
+$var wire 1 < P3 $end
+$var wire 1 , c4 $end
+$var wire 4 = sum [3:0] $end
+$upscope $end
+$scope module dff_a0 $end
+$var wire 1 % clk $end
+$var wire 1 > d $end
+$var wire 1 & reset $end
+$var reg 1 ? q $end
+$upscope $end
+$scope module dff_a1 $end
+$var wire 1 % clk $end
+$var wire 1 @ d $end
+$var wire 1 & reset $end
+$var reg 1 A q $end
+$upscope $end
+$scope module dff_a2 $end
+$var wire 1 % clk $end
+$var wire 1 B d $end
+$var wire 1 & reset $end
+$var reg 1 C q $end
+$upscope $end
+$scope module dff_a3 $end
+$var wire 1 % clk $end
+$var wire 1 D d $end
+$var wire 1 & reset $end
+$var reg 1 E q $end
+$upscope $end
+$scope module dff_b0 $end
+$var wire 1 % clk $end
+$var wire 1 F d $end
+$var wire 1 & reset $end
+$var reg 1 G q $end
+$upscope $end
+$scope module dff_b1 $end
+$var wire 1 % clk $end
+$var wire 1 H d $end
+$var wire 1 & reset $end
+$var reg 1 I q $end
+$upscope $end
+$scope module dff_b2 $end
+$var wire 1 % clk $end
+$var wire 1 J d $end
+$var wire 1 & reset $end
+$var reg 1 K q $end
+$upscope $end
+$scope module dff_b3 $end
+$var wire 1 % clk $end
+$var wire 1 L d $end
+$var wire 1 & reset $end
+$var reg 1 M q $end
+$upscope $end
+$scope module dff_c4 $end
+$var wire 1 % clk $end
+$var wire 1 , d $end
+$var wire 1 & reset $end
+$var reg 1 " q $end
+$upscope $end
+$scope module dff_s0 $end
+$var wire 1 % clk $end
+$var wire 1 N d $end
+$var wire 1 & reset $end
+$var reg 1 O q $end
+$upscope $end
+$scope module dff_s1 $end
+$var wire 1 % clk $end
+$var wire 1 P d $end
+$var wire 1 & reset $end
+$var reg 1 Q q $end
+$upscope $end
+$scope module dff_s2 $end
+$var wire 1 % clk $end
+$var wire 1 R d $end
+$var wire 1 & reset $end
+$var reg 1 S q $end
+$upscope $end
+$scope module dff_s3 $end
+$var wire 1 % clk $end
+$var wire 1 T d $end
+$var wire 1 & reset $end
+$var reg 1 U q $end
+$upscope $end
+$upscope $end
+$upscope $end
+$enddefinitions $end
+#0
+$dumpvars
+0U
+0T
+0S
+0R
+0Q
+0P
+0O
+0N
+0M
+0L
+0K
+0J
+0I
+0H
+0G
+0F
+0E
+0D
+0C
+0B
+0A
+0@
+0?
+0>
+b0 =
+0<
+0;
+0:
+09
+08
+07
+06
+05
+04
+03
+02
+01
+b0 0
+b0 /
+b0 .
+b0 -
+0,
+b0 +
+b0 *
+0)
+b0 (
+b0 '
+1&
+0%
+b0 $
+b0 #
+0"
+b0 !
+$end
+#10000
+0&
+#25000
+1%
+#30000
+1F
+1>
+b1 $
+b1 (
+b1 #
+b1 '
+#50000
+0%
+#70000
+1H
+1@
+b11 $
+b11 (
+b11 #
+b11 '
+#75000
+1R
+1P
+b110 *
+b110 =
+12
+11
+15
+16
+1?
+b11 .
+b11 /
+1A
+1G
+b11 -
+b11 0
+1I
+1%
+#100000
+0%
+#125000
+1S
+b110 !
+b110 +
+1Q
+1%
+#150000
+1J
+1B
+0%
+b111 $
+b111 (
+b111 #
+b111 '
+#175000
+1T
+b1110 *
+b1110 =
+13
+17
+b111 .
+b111 /
+1C
+b111 -
+b111 0
+1K
+1%
+#200000
+0%
+#225000
+b1110 !
+b1110 +
+1U
+1%
+#250000
+0%
+#275000
+1%
+#300000
+0%
+#310000
+1L
+1D
+b1111 $
+b1111 (
+b1111 #
+b1111 '
+#325000
+1,
+14
+18
+b1111 -
+b1111 0
+1M
+b1111 .
+b1111 /
+1E
+1%
+#350000
+0%
+#375000
+1"
+1%
+#400000
+0%
+#425000
+1%
+#450000
+0%
+#475000
+1%
+#500000
+0%
+#525000
+1%
+#550000
+0%
+#575000
+1%
+#600000
+0%
+#625000
+1%
+#630000

@@ -1,0 +1,75 @@
+.include TSMC_180nm.txt
+.param SUPPLY=1.8
+.param VGG=1.5
+.param LAMBDA=0.09u
+.param width_N={10*LAMBDA}
+.param width_P={20*LAMBDA}
+
+.global gnd vdd
+
+vdd vdd gnd 'SUPPLY'   
+
+VA a 0 PULSE(0 {SUPPLY} 0 1n 1n 18n 36n)
+Vclk CLK 0 PULSE(0 {SUPPLY} 0 1n 1n 10n 20n)
+
+.subckt inv y x vdd gnd
+.param width_P={20*LAMBDA}
+.param width_N={10*LAMBDA}
+M1      y       x       gnd     gnd  CMOSN   W={width_N}   L={LAMBDA}
++ AS={5*width_N*LAMBDA} PS={10*LAMBDA+2*width_N} AD={5*width_N*LAMBDA} PD={10*LAMBDA+2*width_N}
+M2      y       x       vdd     vdd  CMOSP   W={width_P}   L={LAMBDA}
++ AS={5*width_P*LAMBDA} PS={10*LAMBDA+2*width_P} AD={5*width_P*LAMBDA} PD={10*LAMBDA+2*width_P}
+.ends inv
+
+
+.subckt flip_flop Q2 D CLK vdd gnd
+.param width_P={20*LAMBDA}
+.param width_N={10*LAMBDA}
+M1      t    D       vdd    vdd   CMOSP   W={width_P}   L={LAMBDA}
++ AS={5*width_P*LAMBDA} PS={10*LAMBDA+2*width_P} AD={5*width_P*LAMBDA} PD={10*LAMBDA+2*width_P}
+M2      k    CLK       t    vdd   CMOSP   W={width_P}   L={LAMBDA}
++ AS={5*width_P*LAMBDA} PS={10*LAMBDA+2*width_P} AD={5*width_P*LAMBDA} PD={10*LAMBDA+2*width_P}
+M3      k    D       gnd    gnd   CMOSN   W={width_N}   L={LAMBDA}
++ AS={5*width_N*LAMBDA} PS={10*LAMBDA+2*width_N} AD={5*width_N*LAMBDA} PD={10*LAMBDA+2*width_N}
+
+M4      t2    k       vdd    vdd   CMOSP   W={width_P}   L={LAMBDA}
++ AS={5*width_P*LAMBDA} PS={10*LAMBDA+2*width_P} AD={5*width_P*LAMBDA} PD={10*LAMBDA+2*width_P}
+M5      k2    CLK       t2    vdd   CMOSP   W={width_P}   L={LAMBDA}
++ AS={5*width_P*LAMBDA} PS={10*LAMBDA+2*width_P} AD={5*width_P*LAMBDA} PD={10*LAMBDA+2*width_P}
+M6      k2    k       gnd    gnd   CMOSN   W={width_N}   L={LAMBDA}
++ AS={5*width_N*LAMBDA} PS={10*LAMBDA+2*width_N} AD={5*width_N*LAMBDA} PD={10*LAMBDA+2*width_N}
+
+M7      t3    k2       vdd    vdd   CMOSP   W={width_P}   L={LAMBDA}
++ AS={5*width_P*LAMBDA} PS={10*LAMBDA+2*width_P} AD={5*width_P*LAMBDA} PD={10*LAMBDA+2*width_P}
+M8      t3    CLK       t4    gnd   CMOSN   W={width_N}   L={LAMBDA}
++ AS={5*width_N*LAMBDA} PS={10*LAMBDA+2*width_N} AD={5*width_N*LAMBDA} PD={10*LAMBDA+2*width_N}
+M9      t4    k2       gnd    gnd   CMOSN   W={width_N}   L={LAMBDA}
++ AS={5*width_N*LAMBDA} PS={10*LAMBDA+2*width_N} AD={5*width_N*LAMBDA} PD={10*LAMBDA+2*width_N}
+
+M10      Q    t3       vdd    vdd   CMOSP   W={width_P}   L={LAMBDA}
++ AS={5*width_P*LAMBDA} PS={10*LAMBDA+2*width_P} AD={5*width_P*LAMBDA} PD={10*LAMBDA+2*width_P}
+M11      Q    CLK       t5    gnd   CMOSN   W={width_N}   L={LAMBDA}
++ AS={5*width_N*LAMBDA} PS={10*LAMBDA+2*width_N} AD={5*width_N*LAMBDA} PD={10*LAMBDA+2*width_N}
+M12      t5    t3       gnd    gnd   CMOSN   W={width_N}   L={LAMBDA}
++ AS={5*width_N*LAMBDA} PS={10*LAMBDA+2*width_N} AD={5*width_N*LAMBDA} PD={10*LAMBDA+2*width_N}
+
+X1 Q1 Q vdd gnd inv
+X2 Q2 Q1 vdd gnd inv
+
+.ends flip_flop
+
+X1 b a CLK vdd gnd flip_flop 
+
+.tran 0.01n 250n
+
+.control
+set hcopypscolor = 1 *White background for saving plots
+set color0=white ** color0 is used to set the background of the plot (manual sec:17.7))
+set color1=black ** color1 is used to set the grid color of the plot (manual sec:17.7))
+
+
+run
+plot v(CLK) v(a)+2 v(b)+4
+
+hardcopy fig_inv_trans.eps v(b) v(c)
+.endc
