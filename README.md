@@ -1,91 +1,79 @@
-# 4-bit Carry-Lookahead Adder
+# 🎬 Movie Recommender App
 
-## Project Overview
-The **4-bit Carry-Lookahead Adder (CLA)** is a high-speed arithmetic circuit designed for efficient binary addition by reducing the propagation delay associated with traditional ripple-carry adders. This project was built entirely from scratch, including **gate-level implementations using Magic VLSI**, as well as netlist-based **circuit simulation and testing**.
+This is a content-based movie recommendation system built using Python, Streamlit, and TMDB API. It recommends movies based on the title(s) you provide, analyzing plot summaries, cast, crew, and genres using both lexical (TF-IDF) and semantic (Sentence-BERT) similarity. It also displays live posters fetched from TMDB.
 
-## Features
-- **Gate-Level Design**: Implemented using fundamental logic gates (AND, OR, XOR, etc.) in **Magic VLSI**.
-- **Optimized Carry Computation**: Reduces the delay caused by ripple-carry propagation.
-- **Netlist Generation & Simulation**: Created and tested using **NGSPICE** for accurate circuit verification.
-- **Functional Verification**: Compared against expected outputs for correctness.
-- **Scalability**: The design principles can be extended to create adders of larger bit-widths.
+## 🔍 What's New (NLP Upgrade)
 
-## Tools & Technologies Used
-- **Magic VLSI**: For designing the gate-level layout of the adder.
-- **NGSPICE**: For netlist-based circuit simulation and validation.
-- **Verilog**: To model and test the logical behavior of the adder.
-- **Linux Shell Scripting**: For automating netlist simulations.
+- Semantic Search with Sentence-BERT: Goes beyond keywords by using contextual embeddings of movie plot summaries.
+- Multi-Movie Matching: Input multiple movie titles to get thematically blended recommendations.
+- Improved Robustness: Fuzzy title matching and API retry logic for better UX.
 
-## Project Breakdown
-### 1. Gate-Level Implementation
-- Designed the fundamental **AND, OR, XOR, and NOT** gates in **Magic VLSI**.
-- Constructed **half-adder** and **full-adder** circuits as building blocks.
-- Implemented the **carry-lookahead logic** to efficiently compute carry bits.
+## 🔧 Features
 
-### 2. Carry-Lookahead Logic
-The **carry-lookahead adder** works by computing the carry bits in advance using the following equations:
+- Multi-movie similarity-based recommendations using TF-IDF and SBERT
+- Semantic search on plot summaries using Sentence-BERT
+- Filter recommendations by minimum IMDb rating
+- Real-time movie poster fetching via TMDB API
+- Interactive, clean UI using Streamlit
+- Robust fuzzy matching and retry logic
 
-- **Generate (G) and Propagate (P) signals**:
-  - \( G_i = A_i \cdot B_i \)
-  - \( P_i = A_i \oplus B_i \)
+## 🔗 Demo
 
-- **Carry Computation**:
-  - \( C_0 = InputCarry \)
-  - \( C_1 = G_0 + (P_0 \cdot C_0) \)
-  - \( C_2 = G_1 + (P_1 \cdot C_1) \)
-  - \( C_3 = G_2 + (P_2 \cdot C_2) \)
-  - \( C_4 = G_3 + (P_3 \cdot C_3) \)
+GitHub Repository: https://github.com/Dataarnoor/movie-recommender
 
-- **Sum Computation**:
-  - \( S_i = P_i \oplus C_{i} \) for \( i = 0,1,2,3 \)
+## 📁 File Structure
 
-### 3. Layout Design in Magic VLSI
-- Designed **individual logic gates** and combined them to form the full adder.
-- Connected multiple full adders with the **carry-lookahead logic**.
-- Verified **DRC (Design Rule Check) and LVS (Layout vs. Schematic) compliance**.
+movie-recommender/
+- app.py                  # Main Streamlit app
+- utils.py                # Core logic and helper functions
+- requirements.txt        # Python dependencies
+- runtime.txt             # Python version for deployment
+- README.md               # Project documentation
+- tmdb_5000_movies.csv    # Movie metadata (from Kaggle)
+- tmdb_5000_credits.csv   # Credits metadata (cast & crew)
 
-### 4. Netlist Extraction and Simulation
-- Generated **SPICE netlist** from the Magic VLSI layout.
-- Simulated using **NGSPICE** to verify functionality.
-- Compared results with expected truth table values.
+## 📅 Datasets Used
 
-## Results
-- The **netlist-based verification** confirmed the correctness of the design.
-- The **carry-lookahead logic** significantly improved addition speed compared to a ripple-carry adder.
-- The layout passed **design rule checks (DRC) and layout vs. schematic (LVS) validation**.
+- tmdb_5000_movies.csv
+- tmdb_5000_credits.csv
 
-## How to Run the Project
-### 1. Open Magic VLSI and Load the Layout
-```sh
-magic -T your_technology_file.tech carry_lookahead_adder.mag
+These files are from the TMDB Movie Dataset on Kaggle: https://www.kaggle.com/datasets/tmdb/tmdb-movie-metadata  
+Place them in the root folder.
+
+## ⚙️ Setup Instructions
+
+### 1. Clone the Repository
+
+```bash
+git clone https://github.com/Dataarnoor/movie-recommender.git
+cd movie-recommender
 ```
-### 2. Extract Netlist
-```sh
-extract all
-ext2spice carry_lookahead_adder.spice
+### 2. Install Dependencies
+```bash
+Copy
+Edit
+pip install -r requirements.txt
+Note: If sentencepiece or sentence-transformers fail on certain platforms, use Python 3.10 or install CMake and pkg-config.
 ```
-### 3. Simulate Using NGSPICE
-```sh
-ngspice carry_lookahead_adder.spice
+### 3. Get Your TMDB API Key
+```bash
+Sign up at https://www.themoviedb.org/
+Generate a v3 API key
+For local setup, add the following to app.py:
+Copy
+Edit
+TMDB_API_KEY = "your_api_key_here"
 ```
-### 4. Run Verilog Testbench (Optional)
-If using Verilog for functional testing:
-```sh
-iverilog -o cla_tb carry_lookahead_adder_tb.v
-vvp cla_tb
+### ▶️ Running the App
+```bash
+streamlit run app.py
+Then open http://localhost:8501 in your browser.
 ```
 
-## Future Improvements
-- Implement **8-bit and 16-bit** versions for wider bit-width operations.
-- Optimize the **layout design** for better area and power efficiency.
-- Integrate with FPGA-based implementations for real-time testing.
+### 📚 Example Usage
+- Enter one or more movie titles (comma-separated): Inception, Interstellar
 
-## References
-- **Digital Design by Morris Mano** (Adder Circuits)
-- **VLSI Design Techniques** (Magic VLSI & NGSPICE)
+- Apply a minimum IMDb rating filter (e.g., 7.5) and get intelligent recommendations with real-time posters.
 
-## Author
-**Dataarnoor Singh**  
-Email: [dataarnoor.oberoi@students.iiit.ac.in](mailto:dataarnoor.oberoi@students.iiit.ac.in)  
-GitHub: [github.com/Dataarnoor](https://github.com/Dataarnoor)
-
+### 🛡️ License
+MIT License. See LICENSE file.
